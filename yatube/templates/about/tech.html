@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block title %}Технологии{% endblock %}
+{% block content %}
+
+{% load static %}
+<div class="bg-image" style="background-image: url({% static 'img/background_about_tech.jpg' %}); height: 100vh;"> 
+  <div class="mask" style="background-color: rgba(0, 0, 0, 0.6)">
+    <div class="d-flex justify-content-center align-items-center h-100">
+      <div class="container py-5">
+        <!-- text-center -->
+          <div class="text-white mb-0 row">
+            <h1 class="text-center">Вот что я умею</h1> <br><br><br>
+            <aside class="col-12 col-md-4">
+              <ul class="list-group list-group-flush text-center">
+                <li>
+                  Python
+                </li>
+                <li>
+                  Django
+                </li>
+              </ul>
+            </aside>
+            <article class="col-12 col-md-8 text-center">
+              <div class="text-start">
+                <p>Вы обожаете front-end? </p>
+                <p>Не можете заснуть не написав пару строк html/css кода?</p>
+                <p>Вёрстка страниц ваше призвание, а в душе вы 
+                  <span style="color:red">Т</span><span style="color:yellow">в</span><span style="color:hsl(22, 100%, 60%)">О</span><span style="color:green">р</span><span style="color:hsl(300, 100%, 60%)">Е</span><span style="color:hsl(200, 100%, 60%)">ц</span>
+                  <span style="color:hsl(285, 100%, 60%)">!</span><span style="color:hsl(166, 100%, 60%)">?</span>
+                </p>
+                <p>Записывайтесь на курс: Python back-end разработчик! </p>
+                <p>Лучшее место для изучения фронтенда по версии 99% разработчиков* </p>
+              </div> 
+            </article>
+          </div>
+        
+    </div>
+  </div>
+</div>
+{% endblock %}

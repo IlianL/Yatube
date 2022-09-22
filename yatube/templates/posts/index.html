@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  Последние обновления на сайте
+{% endblock %}
+
+{% block content %} 
+  <div class="container py-5">
+    <h1>{{ title }}</h1>
+      <article>
+      {% include 'includes/switcher.html' with index=True %}
+      {% for post in page_obj %}
+        {% include 'includes/post_card.html' %}
+        {% include 'includes/group_link.html' %}
+      {% if not forloop.last %}<hr>{% endif %}
+      {% endfor %}
+      {% include 'includes/paginator.html' %}
+      </article>
+  </div>
+  
+{% endblock %} 
