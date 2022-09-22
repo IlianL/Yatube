@@ -152,4 +152,3 @@ CACHES = {
         'LOCATION': os.path.join(BASE_DIR, 'yatube_cache'),
     }
 }
-
