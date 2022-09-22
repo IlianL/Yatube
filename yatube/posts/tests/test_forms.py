@@ -4,6 +4,7 @@ import tempfile
 from django.conf import settings
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.contrib.auth import get_user_model
+from django.core.cache import cache
 from django.test import Client, TestCase, override_settings
 from django.urls import reverse
 
@@ -44,6 +45,9 @@ class TaskPagesTests(TestCase):
         cls.POST_COMMENT_URL = reverse('posts:add_comment', args=[cls.post.id])
         cls.POST_CREATE_URL = reverse('posts:post_create')
         cls.POST_EDIT_URL = reverse('posts:post_edit', args=[cls.post.id])
+
+    def setUp(self):
+        cache.clear()
 
     @classmethod
     def tearDownClass(cls):
