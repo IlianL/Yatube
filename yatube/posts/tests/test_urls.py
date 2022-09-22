@@ -39,7 +39,7 @@ class StaticURLTests(TestCase):
         cls.POST_CREATE_URL = '/create/'
         cls.POST_EDIT_URL = f'/posts/{cls.post.id}/edit/'
         cls.CHECK_404_URL = '/test_404_page/'
-    
+
     def setUp(self):
         cache.clear()
 
