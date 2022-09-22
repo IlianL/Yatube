@@ -1,5 +1,6 @@
 from django.test import TestCase, Client
 from django.contrib.auth import get_user_model
+from django.core.cache import cache
 from django.test import TestCase, Client
 
 from posts.models import Post, Group
@@ -38,6 +39,9 @@ class StaticURLTests(TestCase):
         cls.POST_CREATE_URL = '/create/'
         cls.POST_EDIT_URL = f'/posts/{cls.post.id}/edit/'
         cls.CHECK_404_URL = '/test_404_page/'
+    
+    def setUp(self):
+        cache.clear()
 
     def test_url_at_desired_location(self):
         """
@@ -109,7 +113,6 @@ class StaticURLTests(TestCase):
             self.GROUP_LIST_URL: 'posts/group_list.html',
             self.POST_CREATE_URL: 'posts/create_or_update_post.html',
             self.POST_EDIT_URL: 'posts/create_or_update_post.html',
-            self.CHECK_404_URL: 'core/404.html'
 
         }
         for address, template in templates_url_names.items():
