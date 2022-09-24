@@ -1,23 +1,13 @@
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
-from django.core.paginator import Paginator
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views.decorators.cache import cache_page
 
 from .forms import PostForm, CommentForm
 from .models import Group, Post, Follow
+from .utils import get_page
 
 User = get_user_model()
-
-POST_PER_PAGE: int = 10
-
-
-def get_page(request, object_with_posts, posts_number=POST_PER_PAGE):
-    """Функция-пагинатор"""
-    paginator = Paginator(object_with_posts, posts_number)
-    page_number = request.GET.get('page')
-    page_obj = paginator.get_page(page_number)
-    return page_obj
 
 
 @cache_page(20, key_prefix='index_page')
@@ -49,7 +39,6 @@ def profile(request, username):
     author = get_object_or_404(User, username=username)
     user = request.user
     page_obj = get_page(request, author.posts.all())
-    title = f'Профайл пользователя {author}'
     following = (
         user.is_authenticated
         and Follow.objects.filter(user=user, author=author)
@@ -57,7 +46,6 @@ def profile(request, username):
     context = {
         'page_obj': page_obj,
         'author': author,
-        'title': title,
         'following': following
     }
     return render(request, template, context)
@@ -143,8 +131,11 @@ def follow_index(request):
 @login_required
 def profile_follow(request, username):
     author = get_object_or_404(User, username=username)
-    if author != request.user:
-        Follow.objects.get_or_create(user=request.user, author=author)
+    user_followed = Follow.objects.filter(
+        user=request.user, author=author
+    ).exists()
+    if author != request.user and not user_followed:
+        Follow.objects.create(user=request.user, author=author)
     return redirect('posts:profile', author)
 
 
